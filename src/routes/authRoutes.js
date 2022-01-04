@@ -4,13 +4,14 @@ const router = express.Router()
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import isAdmin from '../middleware/isAdmin'
+import {body,validationResult} from 'express-validator'
 /*
 type : GET
 path : /api/v1/auth/users
 params : none
 isProtected : true (admin)
 */ 
-router.get('/users',isAdmin, async(req,res) => {
+router.get('/users', async(req,res) => {
   try {
       const users = await User.find({})
       res.json({ users })
@@ -25,7 +26,14 @@ path : /api/v1/auth/signup
 params : none
 isProtected :false (admin)
 */ 
-router.post('/signup',async(req,res) => {
+router.post('/signup',
+ body('firstName').isLength({min:5}),
+ body('email').isEmail(),
+ body('password').isAlphanumeric()
+
+,async(req,res) => {
+    const {errors} = validationResult(req)
+    if(errors.length > 0) return res.status(403).json({errors,message: "Bad request"})
     try {
         const {firstName,lastName = '',email,password} = req.body
       
@@ -34,7 +42,7 @@ router.post('/signup',async(req,res) => {
         const hsahedPassword = await bcrypt.hash(password ,salt)
         const user = new User({firstName,lastName,email,password :hsahedPassword , role :1})
         await user.save()
-        console.log(hsahedPassword)
+        // console.log(hsahedPassword)
         res.json({  user })
         
     } catch (error) {
