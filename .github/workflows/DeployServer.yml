@@ -15,3 +15,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: test workflow
         run: echo "YAY this workflow is running"
+      - name: Add gtihub username
+        run: git config --global user.name 'meghana2708'
+      - name: Add github email
+        run: git config --global user.email 'meghana.bamr@gmail.com'
+      - name: Add heroku remote
+        run: git remote add heroku https://heroku:bc823c24-4e25-4e90-a5a5-d5d5ed037ae5@git.heroku.com/meghana-recipe-api.git
+      - name: push to heroku remote
+        run: git push heroku main
