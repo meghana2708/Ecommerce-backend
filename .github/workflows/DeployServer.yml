@@ -20,7 +20,7 @@ jobs:
       - name: Add github email
         run: git config --global user.email 'meghana.bamr@gmail.com'
       - name: Add heroku remote
-        run: git remote add heroku https://heroku:bc823c24-4e25-4e90-a5a5-d5d5ed037ae5@git.heroku.com/meghana-recipe-api.git
+        run: git remote add heroku https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/${{secrets.HEROKU_API_NAME}}.git
       - name: fetch repo
         run: git fetch --unshallow
       - name: push to heroku remote

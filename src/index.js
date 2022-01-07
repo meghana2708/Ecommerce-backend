@@ -19,7 +19,7 @@ app.use('/api/v1/category',categoryRoutes)
 app.use('/api/v1/product',productRoutes)
 console.log('hi')
 app.get('/' ,(req,res) => {
-  res.send(`server running at ${port} (Deployed via workflow)`)
+  res.send(`server running at ${port} (Deployed via workflow with secret)`)
 })
 app.listen(port,(req,res) => {
   console.log(`server listening at port ${port}`)
