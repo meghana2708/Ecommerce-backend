@@ -17,7 +17,7 @@ app.use(express.json())
 app.use("/api/v1/auth", authRoutes)
 app.use('/api/v1/category',categoryRoutes)
 app.use('/api/v1/product',productRoutes)
-
+console.log('hi')
 app.get('/' ,(req,res) => {
   res.send(`server running at ${port} (Deployed from the workflow)`)
 })
